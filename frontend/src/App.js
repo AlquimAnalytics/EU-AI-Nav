@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
+// Get API URL from environment variable, fallback to localhost for development
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+
 function App() {
     const [input, setInput] = useState('');
     const [chatHistory, setChatHistory] = useState([]);
@@ -31,7 +34,7 @@ function App() {
         setChatHistory(prev => [...prev, { type: 'user', content: userMessage }]);
 
         try {
-            const res = await axios.post('http://localhost:5001/api/chat', { message: userMessage });
+            const res = await axios.post(`${API_URL}/api/chat`, { message: userMessage });
             // Add assistant response to chat history
             setChatHistory(prev => [...prev, { type: 'assistant', content: res.data.response }]);
         } catch (error) {
