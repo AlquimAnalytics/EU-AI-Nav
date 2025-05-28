@@ -7,3 +7,5 @@ gunicorn==21.2.0
 langchain-community==0.0.28
 faiss-cpu==1.7.4
 pydantic==1.10.13
+unstructured==0.12.4
+python-magic==0.4.27
