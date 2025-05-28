@@ -1,0 +1,27 @@
+2024-11-15 14:20:49,265 - INFO - Logging setup complete.
+2024-11-15 14:20:49,265 - INFO - Processing rag_project/data/ai_for_europe_0418.pdf...
+2024-11-15 14:21:01,266 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/embed "HTTP/1.1 200 OK"
+2024-11-15 14:21:01,291 - INFO - Loading faiss.
+2024-11-15 14:21:01,507 - INFO - Successfully loaded faiss.
+2024-11-15 14:21:01,543 - INFO - Saved vector store to rag_project/data/ai_for_europe_0418
+2024-11-15 14:21:01,544 - INFO - Moved rag_project/data/ai_for_europe_0418.pdf to archive at rag_project/data/archive/ai_for_europe_0418.pdf
+2024-11-15 14:21:01,544 - INFO - Processing rag_project/data/eu_ai_act_regulation_0724.pdf...
+2024-11-15 14:22:59,125 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/embed "HTTP/1.1 200 OK"
+2024-11-15 14:22:59,254 - INFO - Saved vector store to rag_project/data/eu_ai_act_regulation_0724
+2024-11-15 14:22:59,255 - INFO - Moved rag_project/data/eu_ai_act_regulation_0724.pdf to archive at rag_project/data/archive/eu_ai_act_regulation_0724.pdf
+2024-11-15 14:37:53,439 - INFO - Logging setup complete.
+2024-11-15 14:37:53,439 - WARNING - No text files found in rag_project/data
+2024-11-21 17:22:34,536 - INFO - Logging setup complete.
+2024-11-21 17:22:34,536 - INFO - Processing rag_project/data/ai_for_europe_0418.pdf...
+2024-11-21 17:22:35,290 - INFO - Creating new vector store...
+2024-11-21 17:22:45,627 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/embed "HTTP/1.1 200 OK"
+2024-11-21 17:22:45,641 - INFO - Loading faiss.
+2024-11-21 17:22:45,670 - INFO - Successfully loaded faiss.
+2024-11-21 17:22:45,705 - INFO - Vector store saved to rag_project/data/vector_store
+2024-11-21 17:22:45,705 - INFO - Moved rag_project/data/ai_for_europe_0418.pdf to archive at rag_project/data/archive/ai_for_europe_0418.pdf
+2024-11-21 17:22:45,705 - INFO - Processing rag_project/data/eu_ai_act_regulation_0724.pdf...
+2024-11-21 17:22:47,419 - INFO - Loading existing vector store...
+2024-11-21 17:22:47,421 - INFO - Adding new documents to the vector store...
+2024-11-21 17:24:46,531 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/embed "HTTP/1.1 200 OK"
+2024-11-21 17:24:46,648 - INFO - Vector store saved to rag_project/data/vector_store
+2024-11-21 17:24:46,649 - INFO - Moved rag_project/data/eu_ai_act_regulation_0724.pdf to archive at rag_project/data/archive/eu_ai_act_regulation_0724.pdf

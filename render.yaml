@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: rag-flask-backend
+    env: python
+    buildCommand: |
+      cd backend
+      pip install -r requirements.txt
+    startCommand: |
+      cd backend
+      gunicorn app:app
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: FLASK_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: 3.9.0
+
+  - type: web
+    name: rag-flask-frontend
+    env: node
+    buildCommand: |
+      cd frontend
+      npm install
+      npm run build
+    startCommand: |
+      cd frontend
+      serve -s build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://rag-flask-backend.onrender.com
