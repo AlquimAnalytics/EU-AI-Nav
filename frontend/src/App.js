@@ -4,6 +4,7 @@ import './App.css';
 
 // Get API URL from environment variable, fallback to localhost for development
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+console.log('API URL:', API_URL); // Debug log
 
 function App() {
     const [input, setInput] = useState('');
@@ -34,14 +35,16 @@ function App() {
         setChatHistory(prev => [...prev, { type: 'user', content: userMessage }]);
 
         try {
+            console.log('Sending request to:', `${API_URL}/api/chat`); // Debug log
             const res = await axios.post(`${API_URL}/api/chat`, { message: userMessage });
+            console.log('Response received:', res.data); // Debug log
             // Add assistant response to chat history
             setChatHistory(prev => [...prev, { type: 'assistant', content: res.data.response }]);
         } catch (error) {
-            console.error(error);
+            console.error('Error details:', error.response || error); // Enhanced error logging
             setChatHistory(prev => [...prev, {
                 type: 'assistant',
-                content: 'An error occurred while processing your request.'
+                content: `Error: ${error.response?.data?.message || error.message || 'An error occurred while processing your request.'}`
             }]);
         } finally {
             setLoading(false);
