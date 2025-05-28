@@ -21,7 +21,8 @@ class Retriever:
         self.vector_store_path = os.path.join(self.data_dir, 'vector_store')
         self.vector_store = FAISS.load_local(
             self.vector_store_path,
-            self.embeddings
+            self.embeddings,
+            allow_dangerous_deserialization=True  # Allow deserialization since we created the vector store
         )
 
     def retrieve(self, query, k=5):
