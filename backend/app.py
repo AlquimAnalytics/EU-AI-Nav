@@ -8,13 +8,8 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-# Update CORS to allow requests from both local and deployed frontend
-CORS(app, resources={r"/api/*": {
-    "origins": [
-        "http://localhost:3000",
-        "https://rag-flask-frontend.onrender.com"
-    ]
-}})
+# Allow requests from any origin in development, will be restricted in production
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # Initialize your Chatter instance
 chatter = Chatter()
@@ -29,4 +24,5 @@ def chat():
     return jsonify({'response': response})
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    port = int(os.environ.get('PORT', 5001))
+    app.run(host='0.0.0.0', port=port)
