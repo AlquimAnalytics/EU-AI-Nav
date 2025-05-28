@@ -23,6 +23,9 @@ wheels/
 venv/
 .env
 
+# data
+data/
+
 # Node
 node_modules/
 npm-debug.log*
