@@ -22,9 +22,7 @@ wheels/
 *.egg
 venv/
 .env
-
-# data
-data/
+*.log
 
 # Node
 node_modules/

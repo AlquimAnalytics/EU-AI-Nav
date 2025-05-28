@@ -1,0 +1,107 @@
+[
+    {
+      "question": "Why do we need to regulate the use of Artificial Intelligence?",
+      "answer": "The EU AI Act is the world's first comprehensive AI law. It aims to address risks to health, safety, and fundamental rights. The regulation also protects democracy, rule of law, and the environment.\n\nThe uptake of AI systems has strong potential to bring societal benefits, economic growth, and enhance EU innovation and global competitiveness. However, certain AI systems may create new risks related to user safety, including physical safety, and fundamental rights. Some powerful AI models could even pose systemic risks.\n\nThis leads to legal uncertainty and potentially slower uptake of AI technologies by public authorities, businesses, and citizens due to a lack of trust. Disparate regulatory responses by national authorities would risk fragmenting the internal market.\n\nLegislative action was needed to ensure a well-functioning internal market for AI systems where both benefits and risks are adequately addressed."
+    },
+    {
+      "question": "To whom does the AI Act apply?",
+      "answer": "The legal framework applies to both public and private actors inside and outside the EU as long as the AI system is placed on the Union market or its use impacts people located in the EU.\n\nThe obligations can affect both providers (e.g., a developer of a CV-screening tool) and deployers of AI systems (e.g., a bank buying this screening tool). There are certain exemptions: research, development, and prototyping activities before an AI system is released are not subject to these regulations. Additionally, AI systems exclusively designed for military, defense, or national security purposes are also exempt."
+    },
+    {
+      "question": "What are the risk categories?",
+      "answer": "The AI Act introduces a uniform framework across all EU Member States, based on a forward-looking definition of AI and a risk-based approach:\n\n- **Unacceptable risk**: A limited set of particularly harmful uses of AI that contravene EU values because they violate fundamental rights and will therefore be banned, such as exploitation of vulnerabilities, social scoring, individual predictive policing, untargeted scraping for facial images, emotion recognition in certain settings, and certain biometric categorizations.\n\n- **High-risk**: AI systems that potentially create an adverse impact on people's safety or fundamental rights. Examples include AI assessing eligibility for medical treatments, jobs, loans, or being used by police for profiling.\n\n- **Specific transparency risk**: Certain AI applications where there is a clear risk of manipulation, like chatbots or deep fakes, require specific transparency measures.\n\n- **Minimal risk**: The majority of AI systems can be developed and used subject to existing legislation without additional legal obligations.\n\nAdditionally, the Act considers systemic risks from general-purpose AI models, including large generative AI models."
+    },
+    {
+      "question": "How do I know whether an AI system is high-risk?",
+      "answer": "The AI Act sets out a methodology for classifying AI systems as high-risk, based on the intended purpose of the AI system, aligning with existing EU product safety legislation. Classification depends on the function performed by the AI system and its specific use.\n\nAI systems are high-risk if:\n\n- The AI system is embedded as a safety component in products covered by existing product legislation (Annex I) or constitutes such products themselves (e.g., AI-based medical software).\n\n- The AI system is intended for a high-risk use case listed in Annex III of the AI Act, including areas like education, employment, law enforcement, or migration.\n\nThe Commission is preparing guidelines for high-risk classification, to be published ahead of the application date."
+    },
+    {
+      "question": "What are examples of high-risk use cases as defined in Annex III?",
+      "answer": "Annex III lists eight areas where AI use can be particularly sensitive, with specific use cases:\n\n- AI systems used as safety components in critical infrastructures (e.g., road traffic, utilities).\n- AI systems in education and vocational training (e.g., evaluating learning outcomes, monitoring cheating).\n- AI systems in employment and worker management (e.g., job advertisements, filtering applications, evaluating candidates).\n- AI systems for access to essential services and benefits (e.g., healthcare, creditworthiness assessments, insurance pricing).\n- AI systems in law enforcement, migration, border control, administration of justice, and democratic processes.\n- AI systems for biometric identification, categorization, and emotion recognition, insofar as not prohibited."
+    },
+    {
+      "question": "What are the obligations for providers of high-risk AI systems?",
+      "answer": "Before placing a high-risk AI system on the EU market or putting it into service, providers must conduct a conformity assessment to demonstrate compliance with mandatory requirements for trustworthy AI (e.g., data quality, transparency, human oversight, cybersecurity).\n\nProviders must implement quality and risk management systems to ensure ongoing compliance and minimize risks. High-risk AI systems deployed by public authorities must be registered in a public EU database, except those used for law enforcement and migration, which are registered in a non-public database accessible to supervisory authorities.\n\nMarket surveillance authorities will conduct regular audits and facilitate post-market monitoring. In case of a breach, national authorities can access necessary information to investigate compliance."
+    },
+    {
+      "question": "What is the role of standardization in the AI Act?",
+      "answer": "Under the AI Act, high-risk AI systems are subject to specific requirements, and European harmonized standards play a key role in implementing these requirements.\n\nIn May 2023, the European Commission mandated European standardization organizations CEN and CENELEC to develop standards for high-risk requirements, aligning with the final text of the AI Act. They have until the end of April 2025 to develop and publish standards. The Commission will evaluate and possibly endorse these standards, granting a \"presumption of conformity\" to AI systems developed in accordance with them."
+    },
+    {
+      "question": "How are general-purpose AI models being regulated?",
+      "answer": "General-purpose AI models, including large generative AI models, can be integrated into many AI systems. Providers of such models must disclose certain information to downstream system providers to ensure safety and compliance.\n\nModel providers need policies to respect copyright law when training models. Models trained using more than 10^25 FLOPs are considered to pose systemic risks and have additional obligations: assessing and mitigating risks, reporting incidents, conducting tests, and ensuring cybersecurity.\n\nProviders are encouraged to collaborate with the AI Office and stakeholders to develop a Code of Practice, serving as a tool for compliance."
+    },
+    {
+      "question": "Why is 10^25 FLOPs an appropriate threshold for GPAI with systemic risks?",
+      "answer": "FLOP count serves as a proxy for model capabilities. The 10^25 FLOPs threshold can be updated by the Commission based on technological advances. Models above this threshold have capabilities not yet well understood and could pose systemic risks, justifying additional obligations."
+    },
+    {
+      "question": "What are the obligations regarding watermarking and labeling of AI outputs in the AI Act?",
+      "answer": "The AI Act sets transparency rules for content produced by generative AI to address manipulation, deception, and misinformation.\n\nProviders of generative AI systems must mark AI outputs in a machine-readable format to ensure they are detectable as artificially generated or manipulated. Technical solutions must be effective, interoperable, robust, and reliable.\n\nDeployers of generative AI systems that produce deep fakes must visibly disclose artificial generation or manipulation. This obligation doesn't apply where AI-generated content has undergone human review or editorial control with editorial responsibility.\n\nThe AI Office will issue guidelines and encourage the development of Codes of Practice to implement these obligations."
+    },
+    {
+      "question": "Is the AI Act future-proof?",
+      "answer": "Yes, the AI Act sets a legal framework responsive to new developments, easy to adapt, and allows for frequent evaluation. It sets result-oriented requirements but leaves technical solutions to industry-driven standards and codes of practice.\n\nThe legislation can be amended through delegated and implementing acts, for example, to update the list of high-risk use cases in Annex III. Frequent evaluations will identify needs for revisions and amendments."
+    },
+    {
+      "question": "How does the AI Act regulate biometric identification?",
+      "answer": "The use of real-time remote biometric identification in publicly accessible spaces for law enforcement is prohibited, with exceptions allowed by law for specific serious crimes, targeted searches for victims or missing persons, and prevention of threats to life or safety.\n\nAny exceptional use requires prior authorization by a judicial or independent administrative authority, preceded by a fundamental rights impact assessment, and notification to relevant authorities. In urgent cases, approval can be granted within 24 hours, with data deletion if rejected.\n\nPost remote biometric identification (identification in previously collected material) requires prior authorization and notification to authorities."
+    },
+    {
+      "question": "Why are particular rules needed for remote biometric identification?",
+      "answer": "Remote biometric identification, such as identifying people in crowds, significantly impacts privacy in public spaces. Factors like camera quality, algorithms, and subject characteristics affect accuracy.\n\nEven a small error rate can have significant impacts when applied to large populations, leading to risks like the suspicion of innocent individuals. Specific rules are needed to mitigate these risks and protect fundamental rights."
+    },
+    {
+      "question": "How do the rules protect fundamental rights?",
+      "answer": "The AI Act integrates accountability and transparency requirements into the development of high-risk AI systems to ensure compliance with fundamental rights legislation. This human-centric approach ensures systems are designed with legal compliance from the start.\n\nIn case of breaches, national authorities have access to necessary information to investigate compliance. The Act also requires certain deployers of high-risk AI systems to conduct a fundamental rights impact assessment."
+    },
+    {
+      "question": "What is a fundamental rights impact assessment? Who has to conduct it, and when?",
+      "answer": "A fundamental rights impact assessment evaluates potential impacts of a high-risk AI system on fundamental rights. Deployers that are public bodies or private operators providing public services, as well as operators conducting creditworthiness assessments or insurance pricing, must perform this assessment and notify the national authority of the results.\n\nThis assessment should be conducted in conjunction with data protection impact assessments to avoid overlaps."
+    },
+    {
+      "question": "How does this regulation address racial and gender bias in AI?",
+      "answer": "The AI Act acknowledges that AI systems, when properly designed and used, can reduce bias and structural discrimination. Mandatory requirements for high-risk AI systems ensure they are technically robust and do not produce biased results affecting marginalized groups.\n\nHigh-risk systems must be trained and tested with sufficiently representative datasets to minimize unfair biases. They must be traceable and auditable, with appropriate documentation kept for ex-post investigations. Compliance systems ensure regular monitoring and prompt addressing of potential risks."
+    },
+    {
+      "question": "When will the AI Act be fully applicable?",
+      "answer": "The AI Act will apply two years after entry into force on **2 August 2026**, except for specific provisions:\n\n- Prohibitions, definitions, and provisions related to AI literacy apply 6 months after entry into force on **2 February 2025**.\n- Rules on governance and obligations for general-purpose AI become applicable 12 months after entry into force on **2 August 2025**.\n- Obligations for high-risk AI systems embedded in regulated products (listed in Annex II) apply 36 months after entry into force on **2 August 2027**."
+    },
+    {
+      "question": "How will the AI Act be enforced?",
+      "answer": "The AI Act establishes a two-tiered governance system:\n\n- **National Level**: National authorities oversee and enforce rules for AI systems within their jurisdictions.\n- **EU Level**: The European Artificial Intelligence Board (AI Board) and the AI Office govern general-purpose AI models and ensure EU-wide coherence and cooperation.\n\nThe AI Board comprises representatives from Member States and provides guidance on AI policy. The AI Office provides strategic guidance and facilitates implementation. Two advisory bodies, the Scientific Panel and the Advisory Forum, offer expert input."
+    },
+    {
+      "question": "Why is a European Artificial Intelligence Board needed and what will it do?",
+      "answer": "The European Artificial Intelligence Board is needed to ensure smooth, effective, and harmonized implementation of the AI Act across the EU. It comprises high-level representatives from Member States and the European Data Protection Supervisor.\n\nThe AI Board provides guidance on AI policy, including regulation, innovation, and international cooperation. It serves as a forum where AI regulators coordinate the consistent application of the AI Act."
+    },
+    {
+      "question": "What are the penalties for infringement?",
+      "answer": "Member States must establish effective, proportionate, and dissuasive penalties for infringements. The Regulation sets thresholds:\n\n- Up to **€35 million** or **7%** of total worldwide annual turnover for infringements on prohibited practices or non-compliance related to data requirements.\n- Up to **€15 million** or **3%** of total worldwide annual turnover for non-compliance with other requirements.\n- Up to **€7.5 million** or **1.5%** of total worldwide annual turnover for supplying incorrect or misleading information to authorities.\n\nFor SMEs, the threshold is the lower amount; for other companies, it's the higher amount. The Commission can enforce rules on providers of general-purpose AI models with fines up to **€15 million** or **3%** of total worldwide annual turnover."
+    },
+    {
+      "question": "How will the General-Purpose AI Code of Practice be written?",
+      "answer": "The Code of Practice will be developed through an inclusive and transparent process involving a Code of Practice Plenary. Participants include general-purpose AI model providers, downstream providers, industry organizations, civil society, academia, and experts.\n\nThe AI Office launched a call for expression of interest and a multi-stakeholder consultation to gather input. The Plenary is structured into four Working Groups focusing on specific topics. Chairs and Vice-Chairs will synthesize submissions and draft the Code iteratively.\n\nAfter nine months, the final Code will be presented in a closing Plenary, expected in April, and published. Providers can express their intent to use the Code."
+    },
+    {
+      "question": "If approved, how does the Code of Practice for general-purpose AI model providers serve as a central tool for compliance?",
+      "answer": "Once the Code of Practice is drafted, the AI Office and AI Board assess its adequacy. The Commission may approve it, giving it general validity within the EU. Providers can rely on the Code to demonstrate compliance with AI Act obligations.\n\nThe Code should include objectives, measures, and key performance indicators (KPIs). Providers adhering to the Code should regularly report to the AI Office on implementation and outcomes. This facilitates enforcement by the AI Office, which has powers to evaluate models, request information, and apply sanctions."
+    },
+    {
+      "question": "Does the AI Act contain provisions regarding environmental protection and sustainability?",
+      "answer": "Yes, the AI Act addresses risks to safety and fundamental rights, including environmental protection. The environment is an explicitly mentioned and protected legal interest.\n\nThe Commission is asked to request standardization deliverables to improve AI systems' resource performance, such as reducing energy consumption. Providers of general-purpose AI models are required to disclose energy consumption, and models with systemic risks need energy efficiency assessments. The Commission can develop measurement methodologies for these obligations."
+    },
+    {
+      "question": "How can the new rules support innovation?",
+      "answer": "The regulatory framework enhances AI uptake by increasing user trust and providing legal certainty, allowing AI providers to access bigger markets. Rules apply only where needed, minimizing burdens with a light governance structure.\n\nThe AI Act enables the creation of regulatory sandboxes and real-world testing environments for innovative technologies. Other measures include Networks of AI Excellence Centers, Public-Private Partnerships, and access to Digital Innovation Hubs, fostering the right conditions for AI development and deployment."
+    },
+    {
+      "question": "What role does the AI Pact play in the implementation of the AI Act?",
+      "answer": "Initiated by Commissioner Breton in May 2023, the AI Pact enhances engagement between the AI Office and organizations and encourages voluntary commitment to start implementing AI Act requirements ahead of deadlines.\n\nUnder Pillar I, participants contribute to a collaborative community, sharing experiences and knowledge through workshops. Under Pillar II, organizations proactively disclose processes and practices to anticipate compliance through voluntary pledges.\n\nOver 700 organizations have expressed interest in the AI Pact. An information session was held on 6 May with 300 participants. The official signing of voluntary commitments is planned for autumn 2024, with a workshop scheduled for the first week of September."
+    },
+    {
+      "question": "What is the international dimension of the EU's approach?",
+      "answer": "AI's challenges transcend borders, making international cooperation important. The AI Office leads the EU's international engagement in AI, based on the AI Act and the Coordinated Plan on AI. The EU promotes responsible stewardship and good governance of AI in collaboration with international partners.\n\nThe EU engages in multilateral forums like the G7, G20, OECD, Council of Europe, Global Partnership on AI, and the United Nations. Bilateral ties exist with countries like Canada, the US, India, Japan, South Korea, Singapore, and regions like Latin America and the Caribbean."
+    }
+  ]
+  
