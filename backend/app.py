@@ -8,8 +8,12 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-# Allow requests from any origin in development, will be restricted in production
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+# Get frontend URL from environment variable or use default
+FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
+
+# Configure CORS with specific origin
+CORS(app, resources={r"/api/*": {"origins": [FRONTEND_URL, "http://localhost:3000"]}})
 
 # Initialize your Chatter instance
 chatter = Chatter()
@@ -21,6 +25,9 @@ def chat():
     if not user_input:
         return jsonify({'response': 'No input provided.'}), 400
     response = chatter.chat(user_input)
+    app.logger.info(f'API URL: {request.url}')
+    app.logger.info(f'Request: {data}')
+    app.logger.info(f'Response: {response}')
     return jsonify({'response': response})
 
 if __name__ == '__main__':
