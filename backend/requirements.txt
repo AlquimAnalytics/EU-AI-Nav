@@ -5,3 +5,4 @@ langchain-openai==0.0.8
 python-dotenv==1.0.1
 gunicorn==21.2.0
 langchain-community>=0.0.28
+faiss-cpu==1.7.4
