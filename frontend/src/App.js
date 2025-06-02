@@ -66,11 +66,11 @@ function App() {
     return (
         <div className="app-container">
             <div className="chat-container">
-                <h1 className="title">RAG Assistant</h1>
-                <p className="subtitle">Your AI companion for RAG pipeline development</p>
+                <h1 className="title">EU AI Act Assistant</h1>
+                <p className="subtitle">Your AI companion for understanding the EU AI Act and its implications</p>
 
                 <div className="example-questions">
-                    <h3>Try asking about:</h3>
+                    <h3>Example Questions:</h3>
                     <div className="question-chips">
                         {exampleQuestions.map((question, index) => (
                             <button
@@ -117,7 +117,7 @@ function App() {
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={handleKeyDown}
-                            placeholder="Ask me anything about RAG pipelines... (Press Enter to send, Shift+Enter for new line)"
+                            placeholder="Ask me anything about the EU AI Act... (Press Enter to send, Shift+Enter for new line)"
                             required
                             className="chat-input"
                         />
