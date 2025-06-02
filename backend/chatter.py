@@ -4,13 +4,15 @@ Runs a chatbot that uses a vector store to retrieve and answer questions.
 
 import os, logging
 
+from dotenv import load_dotenv
+
 from utils.helpers import setup_logging
 from langchain_core.output_parsers import StrOutputParser
 from retriever import Retriever
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 
-
+load_dotenv()
 class Chatter:
     """Core chatbot logic integrating retrieval and response generation."""
     def __init__(self, log_file='chatter.log') -> None:
@@ -23,7 +25,7 @@ class Chatter:
             raise ValueError("OpenAI API key is required. Please set the OPENAI_API_KEY environment variable.")
 
         self.retriever = Retriever()
-        self.llm = ChatOpenAI(model_name='gpt-4', openai_api_key=self.openai_api_key)
+        self.llm = ChatOpenAI(model_name='gpt-4o-mini', openai_api_key=self.openai_api_key)
         self.qa_chain = self.create_qa_chain()
 
     def create_qa_chain(self):
