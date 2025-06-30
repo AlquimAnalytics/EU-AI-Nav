@@ -1,4 +1,0 @@
-This is a test document for the RAG application.
-It contains some sample text that we can use to test the vector store functionality.
-The application uses FAISS for vector storage and retrieval.
-We can add more documents to test the system's ability to handle multiple documents. 
