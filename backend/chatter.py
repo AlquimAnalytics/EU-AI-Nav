@@ -188,31 +188,9 @@ AVOID:
             # Get chat history for context
             chat_history = self.memory.chat_memory.messages
             
-            # Try to analyze the query
-            try:
-                analysis_result = self.query_analyzer.invoke({
-                    "query": query,
-                    "chat_history": chat_history
-                })
-                
-                try:
-                    analysis = json.loads(analysis_result)
-                    # Validate required fields
-                    required_fields = ["is_relevant", "reformulated_query", "key_concepts", "query_type", "confidence"]
-                    if all(field in analysis for field in required_fields):
-                        return analysis
-                    else:
-                        raise ValueError("Missing required fields in analysis")
-                        
-                except (json.JSONDecodeError, ValueError) as e:
-                    logging.warning(f"Failed to parse query analysis JSON: {e}")
-                    # Fallback to default analysis
-                    return self._create_default_analysis(query, chat_history)
-                    
-            except Exception as e:
-                logging.warning(f"Query analyzer failed: {e}")
-                # Fallback to default analysis
-                return self._create_default_analysis(query, chat_history)
+            # Temporarily disable query analyzer due to version compatibility issues
+            # Use fallback analysis instead
+            return self._create_default_analysis(query, chat_history)
             
         except Exception as e:
             logging.error(f"Error preprocessing query: {e}")
