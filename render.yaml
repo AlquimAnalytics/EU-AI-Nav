@@ -28,4 +28,4 @@ services:
       serve -s build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://rag-flask-backend.onrender.com/api
+        value: https://rag-flask-backend.onrender.com
