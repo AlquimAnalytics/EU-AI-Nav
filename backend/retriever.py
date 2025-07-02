@@ -55,11 +55,11 @@ class Retriever:
                 
                 try:
                     # Try with the newer parameter first (for newer versions of langchain-community)
-                docsearch = FAISS.load_local(
-                    self.vector_store_path,
-                    self.embeddings,
-                    allow_dangerous_deserialization=True
-                )
+                    docsearch = FAISS.load_local(
+                        self.vector_store_path,
+                        self.embeddings,
+                        allow_dangerous_deserialization=True
+                    )
                 except TypeError:
                     # Fallback for older versions that don't support the parameter
                     docsearch = FAISS.load_local(
