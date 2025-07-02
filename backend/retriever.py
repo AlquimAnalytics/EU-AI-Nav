@@ -55,8 +55,7 @@ class Retriever:
                 
                 docsearch = FAISS.load_local(
                     self.vector_store_path,
-                    self.embeddings,
-                    allow_dangerous_deserialization=True
+                    self.embeddings
                 )
                 
                 # Get basic stats about the vector store
