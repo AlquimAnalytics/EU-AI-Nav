@@ -26,18 +26,43 @@ function App() {
     }, [messages]);
 
     useEffect(() => {
+        // Test backend connectivity on startup
+        testBackendConnection();
         getStats();
     }, []);
 
+    const testBackendConnection = async () => {
+        try {
+            console.log(`Testing backend connection to: ${API_BASE_URL}/health`);
+            const response = await fetch(`${API_BASE_URL}/health`);
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Backend connection successful:', data);
+            } else {
+                console.error('Backend health check failed:', response.status);
+            }
+        } catch (error) {
+            console.error('Backend connection test failed:', error);
+            console.error('This might explain fetch failures in the app');
+        }
+    };
+
     const getStats = async () => {
         try {
+            console.log(`Fetching stats from: ${API_BASE_URL}/stats`);
             const response = await fetch(`${API_BASE_URL}/stats`);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             const data = await response.json();
             if (data.success) {
                 setStats(data.stats);
             }
         } catch (error) {
             console.error('Failed to get stats:', error);
+            console.error('API_BASE_URL:', API_BASE_URL);
         }
     };
 
@@ -57,6 +82,7 @@ function App() {
         setIsLoading(true);
 
         try {
+            console.log(`Sending message to: ${API_BASE_URL}/chat`);
             const response = await fetch(`${API_BASE_URL}/chat`, {
                 method: 'POST',
                 headers: {
@@ -64,6 +90,10 @@ function App() {
                 },
                 body: JSON.stringify({ message: textToSend }),
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
             const data = await response.json();
 
@@ -109,11 +139,19 @@ function App() {
 
     const resetConversation = async () => {
         try {
-            await fetch(`${API_BASE_URL}/reset`, { method: 'POST' });
+            console.log(`Resetting conversation at: ${API_BASE_URL}/reset`);
+            const response = await fetch(`${API_BASE_URL}/reset`, { method: 'POST' });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             setMessages([]);
             getStats();
         } catch (error) {
             console.error('Failed to reset conversation:', error);
+            console.error('API_BASE_URL:', API_BASE_URL);
+            console.error('Full error:', error);
         }
     };
 
