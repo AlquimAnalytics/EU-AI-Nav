@@ -8,13 +8,21 @@ function App() {
     const [stats, setStats] = useState(null);
     const messagesEndRef = useRef(null);
 
-    const API_BASE_URL = process.env.REACT_APP_API_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001/api';
-
-    console.log('Environment variables check:');
+    // Debug environment variables
+    console.log('🔍 ENVIRONMENT DEBUG:');
+    console.log('All process.env:', Object.keys(process.env).filter(key => key.startsWith('REACT_APP_')));
     console.log('REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
     console.log('REACT_APP_BACKEND_URL:', process.env.REACT_APP_BACKEND_URL);
     console.log('NODE_ENV:', process.env.NODE_ENV);
-    console.log('Final API_BASE_URL:', API_BASE_URL);
+
+    const API_BASE_URL = process.env.REACT_APP_API_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001/api';
+
+    console.log('🎯 Final API_BASE_URL:', API_BASE_URL);
+
+    // Immediate alert to ensure visibility
+    if (!process.env.REACT_APP_API_URL) {
+        console.warn('⚠️ REACT_APP_API_URL is not set! Using fallback:', API_BASE_URL);
+    }
 
     const exampleQuestions = [
         "What is the EU AI Act?",

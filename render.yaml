@@ -21,7 +21,14 @@ services:
     env: node
     buildCommand: |
       cd frontend
+      echo "Creating .env file for React build..."
+      echo "REACT_APP_API_URL=https://rag-flask-backend.onrender.com/api" > .env
+      echo "REACT_APP_BACKEND_URL=https://rag-flask-backend.onrender.com/api" >> .env
+      echo "Contents of .env file:"
+      cat .env
+      echo "Installing dependencies..."
       npm install
+      echo "Building React app with environment variables..."
       npm run build
     startCommand: |
       cd frontend
