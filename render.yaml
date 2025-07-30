@@ -21,15 +21,37 @@ services:
     env: node
     buildCommand: |
       cd frontend
+      echo "🔍 Build Environment Debug:"
+      echo "NODE_ENV=$NODE_ENV"
+      echo "Current directory: $(pwd)"
+      echo "Available env vars:"
+      env | grep REACT_APP || echo "No REACT_APP vars found"
+      
       echo "Creating .env file for React build..."
       echo "REACT_APP_API_URL=https://rag-flask-backend.onrender.com/api" > .env
       echo "REACT_APP_BACKEND_URL=https://rag-flask-backend.onrender.com/api" >> .env
+      echo "NODE_ENV=production" >> .env
+      
       echo "Contents of .env file:"
       cat .env
+      
+      echo "Exporting environment variables..."
+      export REACT_APP_API_URL=https://rag-flask-backend.onrender.com/api
+      export REACT_APP_BACKEND_URL=https://rag-flask-backend.onrender.com/api
+      export NODE_ENV=production
+      
+      echo "Verifying exports:"
+      echo "REACT_APP_API_URL=$REACT_APP_API_URL"
+      echo "NODE_ENV=$NODE_ENV"
+      
       echo "Installing dependencies..."
       npm install
-      echo "Building React app with environment variables..."
+      
+      echo "Building React app..."
       npm run build
+      
+      echo "Build completed. Checking build output..."
+      ls -la build/
     startCommand: |
       cd frontend
       npx serve -s build -l 3000

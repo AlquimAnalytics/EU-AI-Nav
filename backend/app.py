@@ -14,18 +14,26 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Configure CORS with proper production settings
+# Configure CORS for production
 CORS(app, resources={r"/api/*": {
     "origins": [
         "https://rag-flask-frontend.onrender.com",
         "http://localhost:3000",  # For local development
-        "*"  # Allow all origins for now
+        "*"  # Allow all origins for debugging
     ],
-    "methods": ["POST", "OPTIONS", "GET"],
-    "allow_headers": ["Content-Type", "Authorization"],
+    "methods": ["POST", "OPTIONS", "GET", "HEAD"],
+    "allow_headers": ["Content-Type", "Authorization", "Accept"],
     "expose_headers": ["Content-Type", "Authorization"],
-    "supports_credentials": False  # Change to False for production
+    "supports_credentials": False
 }})
+
+# Additional CORS for debugging
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    return response
 
 # Initialize your Chatter instance
 chatter = Chatter()

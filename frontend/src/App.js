@@ -15,7 +15,10 @@ function App() {
     console.log('REACT_APP_BACKEND_URL:', process.env.REACT_APP_BACKEND_URL);
     console.log('NODE_ENV:', process.env.NODE_ENV);
 
-    const API_BASE_URL = process.env.REACT_APP_API_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001/api';
+    // Force the correct URL for production since env vars aren't working
+    const API_BASE_URL = process.env.NODE_ENV === 'production'
+        ? 'https://rag-flask-backend.onrender.com/api'
+        : (process.env.REACT_APP_API_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001/api');
 
     console.log('🎯 Final API_BASE_URL:', API_BASE_URL);
 
