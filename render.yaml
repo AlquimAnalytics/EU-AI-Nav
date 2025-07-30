@@ -25,7 +25,9 @@ services:
       npm run build
     startCommand: |
       cd frontend
-      serve -s build
+      npx serve -s build -l 3000
     envVars:
       - key: REACT_APP_API_URL
+        value: https://rag-flask-backend.onrender.com/api
+      - key: REACT_APP_BACKEND_URL
         value: https://rag-flask-backend.onrender.com/api

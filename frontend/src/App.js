@@ -8,7 +8,13 @@ function App() {
     const [stats, setStats] = useState(null);
     const messagesEndRef = useRef(null);
 
-    const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+    const API_BASE_URL = process.env.REACT_APP_API_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001/api';
+
+    console.log('Environment variables check:');
+    console.log('REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
+    console.log('REACT_APP_BACKEND_URL:', process.env.REACT_APP_BACKEND_URL);
+    console.log('NODE_ENV:', process.env.NODE_ENV);
+    console.log('Final API_BASE_URL:', API_BASE_URL);
 
     const exampleQuestions = [
         "What is the EU AI Act?",
