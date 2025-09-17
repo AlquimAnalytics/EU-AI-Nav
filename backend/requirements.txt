@@ -1,19 +1,18 @@
-flask>=2.3.0,<3.0.0
-flask-cors==4.0.0
-python-dotenv>=1.0.0
-langchain==0.1.12
-langchain-openai==0.0.8
-langchain-community==0.0.28
-langchain-core==0.1.53
+Flask==3.1.2
+Flask-Cors==4.0.0
+python-dotenv==1.1.1
+
+# LangChain stack
+langchain==0.3.27
+langchain-community==0.3.29
+langchain-core==0.3.76
+langchain-openai==0.3.33
 openai==1.52.2
+
+# Vector store and PDF parsing
 faiss-cpu==1.7.4
-numpy==1.24.3
-pandas>=2.0.0,<3.0.0
-requests==2.31.0
-tiktoken>=0.5.2,<0.6.0
-sentence-transformers==3.2.1
-transformers==4.46.0
-torch==2.5.0
-scikit-learn>=1.2.0,<2.0.0
-gunicorn==21.2.0
+numpy==1.24.4
 pypdf>=3.0.0
+
+# Production server
+gunicorn==21.2.0
