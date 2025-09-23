@@ -1,5 +1,5 @@
-# Frontend Dockerfile for React Application
-FROM node:18-alpine
+# Frontend Dockerfile for React Application - Static Build
+FROM node:18-alpine as build
 
 # Set working directory
 WORKDIR /app
@@ -7,19 +7,20 @@ WORKDIR /app
 # Copy package files
 COPY frontend/package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install all dependencies (including devDependencies for build)
+RUN npm ci
 
 # Copy source code
 COPY frontend/ .
 
-# Set environment variables for React
-ENV HOST=0.0.0.0
-ENV PORT=3000
+# Set environment variables for build
 ENV PUBLIC_URL=/eu-ai-nav
+ENV NODE_ENV=production
 
-# Expose port
-EXPOSE 3000
+# Build the application
+RUN npm run build
 
-# Start the application
-CMD ["npm", "start"]
+
+RUN npm install -g serve
+
+CMD ["serve", "-s", "build", "-l", "3000"]

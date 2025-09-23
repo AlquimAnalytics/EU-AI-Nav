@@ -72,9 +72,6 @@ jobs:
                         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
                         proxy_set_header X-Forwarded-Proto \$scheme;
                         proxy_set_header X-Forwarded-Prefix /eu-ai-nav;
-                        proxy_http_version 1.1;
-                        proxy_set_header Upgrade \$http_upgrade;
-                        proxy_set_header Connection "upgrade";
                     }
 
                     # Route /eu-ai-nav to container on port 8000

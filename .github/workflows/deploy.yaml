@@ -51,6 +51,31 @@ jobs:
                 docker build -f Docker/Dockerfile.frontend -t $REGISTRY/$DOCKER_REPOSITORY:$FRONTEND_TAG .
                 docker push $REGISTRY/$DOCKER_REPOSITORY:$FRONTEND_TAG
 
+          - name: Copy vector store files to EC2
+            uses: appleboy/ssh-action@master
+            with:
+              host: ${{ env.PUBLIC_IP }}
+              username: ec2-user
+              key: ${{ env.PRIVATE_SSH_KEY }}
+              script: |-
+                # Create data directory structure
+                sudo mkdir -p /home/ec2-user/data/vector_store
+                sudo mkdir -p /home/ec2-user/data/documents
+                
+                # Set proper permissions
+                sudo chmod -R 755 /home/ec2-user/data
+                sudo chown -R ec2-user:ec2-user /home/ec2-user/data
+
+          - name: Upload vector store files
+            uses: appleboy/scp-action@master
+            with:
+              host: ${{ env.PUBLIC_IP }}
+              username: ec2-user
+              key: ${{ env.PRIVATE_SSH_KEY }}
+              source: "backend/data/vector_store/*"
+              target: "/home/ec2-user/data/vector_store/"
+              strip_components: 3
+
     pull-from-ecr-and-deploy:
         needs: publish-to-ecr
         runs-on: ubuntu-latest
@@ -72,6 +97,10 @@ jobs:
               command_timeout: 15m
               script: |-
                 echo "Deploying RAG Docker images to EC2..."
+                
+                # Ensure data directory exists and has proper permissions
+                sudo mkdir -p /home/ec2-user/data/vector_store
+                sudo chmod -R 755 /home/ec2-user/data
                 
                 # Login to ECR
                 echo $(aws ecr get-login-password --region $AWS_REGION) | sudo docker login --username AWS --password-stdin $REGISTRY
