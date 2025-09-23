@@ -84,7 +84,7 @@ def index():
     """Serve the main chat interface."""
     return render_template('index.html')
 
-@app.route('/api/chat', methods=['POST'])
+@app.route('/chat', methods=['POST'])
 def chat():
     """Main chat endpoint that handles user queries."""
     try:
@@ -132,7 +132,7 @@ def chat():
             'error': str(e)
         }), 500
 
-@app.route('/api/stats', methods=['GET'])
+@app.route('/stats', methods=['GET'])
 def get_stats():
     """Get conversation statistics."""
     try:
@@ -148,7 +148,7 @@ def get_stats():
             'error': str(e)
         }), 500
 
-@app.route('/api/counter', methods=['GET'])
+@app.route('/counter', methods=['GET'])
 def get_counter():
     """Get daily message counter status."""
     try:
@@ -167,7 +167,7 @@ def get_counter():
             'error': str(e)
         }), 500
 
-@app.route('/api/reset', methods=['POST'])
+@app.route('/reset', methods=['POST'])
 def reset_conversation():
     """Reset the conversation memory."""
     try:
@@ -183,7 +183,7 @@ def reset_conversation():
             'error': str(e)
         }), 500
 
-@app.route('/api/health', methods=['GET'])
+@app.route('/health', methods=['GET'])
 def health_check():
     """Health check endpoint."""
     try:
@@ -201,7 +201,7 @@ def health_check():
             'error': str(e)
         }), 500
 
-@app.route('/api/store-email', methods=['POST'])
+@app.route('/store-email', methods=['POST'])
 def store_email():
     """Store user email address in a file."""
     try:
@@ -273,7 +273,7 @@ def store_email():
             'error': str(e)
         }), 500
 
-@app.route('/api/capabilities', methods=['GET'])
+@app.route('/capabilities', methods=['GET'])
 def get_capabilities():
     """Get information about what the assistant can help with."""
     return jsonify({

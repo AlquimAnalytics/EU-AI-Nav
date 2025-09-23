@@ -86,6 +86,17 @@
             width: 48px;
             height: 48px;
             flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .alquim-logo:hover {
+            filter: brightness(1.2) saturate(1.5);
+        }
+
+        /* EU Yellow hover effects for links */
+        a:hover {
+            color: #fc0 !important;
+            transition: color 0.3s ease;
         }
 
 
@@ -102,6 +113,7 @@
             justify-content: center;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 51, 153, 0.2);
+            border-bottom: 3px solid #fc0;
             z-index: 10;
             min-height: fit-content;
             position: relative;
@@ -770,7 +782,7 @@
             "What are the compliance requirements for businesses?",
         ];
 
-        const API_BASE_URL = '/api';
+        const API_BASE_URL = '/eu-ai';
 
         function scrollToBottom() {
             const messagesContainer = document.getElementById('messagesContainer');
