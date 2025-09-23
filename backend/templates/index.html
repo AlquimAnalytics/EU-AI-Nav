@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇪🇺 EU AI Act Assistant</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgODEwIDU0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxnIGlkPSJzIj4KICAgICAgPGcgaWQ9ImMiPgogICAgICAgIDxwYXRoIGlkPSJ0IiBkPSJNMCwwdjFoMC41eiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwtMSlyb3RhdGUoMTgpIi8+CiAgICAgICAgPHVzZSB4bGluazpocmVmPSIjdCIgdHJhbnNmb3JtPSJzY2FsZSgtMSwxKSIvPgogICAgICA8L2c+CiAgICAgIDxnIGlkPSJhIj4KICAgICAgICA8dXNlIHhsaW5rOmhyZWY9IiNjIiB0cmFuc2Zvcm09InJvdGF0ZSg3MikiLz4KICAgICAgICA8dXNlIHhsaW5rOmhyZWY9IiNjIiB0cmFuc2Zvcm09InJvdGF0ZSgxNDQpIi8+CiAgICAgIDwvZz4KICAgICAgPHVzZSB4bGluazpocmVmPSIjYSIgdHJhbnNmb3JtPSJzY2FsZSgtMSwxKSIvPgogICAgPC9nPgogIDwvZGVmcz4KICA8cmVjdCBmaWxsPSIjMDAzMzk5IiB3aWR0aD0iODEwIiBoZWlnaHQ9IjU0MCIvPgogIDxnIGZpbGw9IiNmYzAiIHRyYW5zZm9ybT0ic2NhbGUoMzApdHJhbnNsYXRlKDEzLjUsOSkiPgogICAgPHVzZSB4bGluazpocmVmPSIjcyIgeT0iLTYiLz4KICAgIDx1c2UgeGxpbms6aHJlZj0iI3MiIHk9IjYiLz4KICAgIDxnIGlkPSJsIj4KICAgICAgPHVzZSB4bGluazpocmVmPSIjcyIgeD0iLTYiLz4KICAgICAgPHVzZSB4bGluazpocmVmPSIjcyIgdHJhbnNmb3JtPSJyb3RhdGUoMTUwKXRyYW5zbGF0ZSgwLDYpcm90YXRlKDY2KSIvPgogICAgICA8dXNlIHhsaW5rOmhyZWY9IiNzIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApdHJhbnNsYXRlKDAsNilyb3RhdGUoMjQpIi8+CiAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3MiIHRyYW5zZm9ybT0icm90YXRlKDYwKXRyYW5zbGF0ZSgwLDYpcm90YXRlKDEyKSIvPgogICAgICA8dXNlIHhsaW5rOmhyZWY9IiNzIiB0cmFuc2Zvcm09InJvdGF0ZSgzMCl0cmFuc2xhdGUoMCw2KXJvdGF0ZSg0MikiLz4KICAgIDwvZz4KICAgIDx1c2UgeGxpbms6aHJlZj0iI2wiIHRyYW5zZm9ybT0ic2NhbGUoLTEsMSkiLz4KICA8L2c+Cjwvc3ZnPg==">
+    <style>
+        /* EU Official Website Design Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow: hidden;
+            color: #333;
+        }
+
+        .App {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            grid-template-rows: auto auto 1fr auto;
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+            background: white;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        /* Top White Banner - EU Flag and Language */
+        .top-banner {
+            grid-column: 1 / -1;
+            grid-row: 1;
+            background: white;
+            border-bottom: 1px solid #e1e5e9;
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 12;
+            min-height: 50px;
+        }
+
+        .top-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .top-banner-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .eu-flag-small {
+            width: 71px;
+            height: 48px;
+            flex-shrink: 0;
+        }
+
+        .alquim-logo {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+        }
+
+
+        /* Main Blue Header */
+        .App-header {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            background: #003399; /* EU Official Blue */
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 51, 153, 0.2);
+            z-index: 10;
+            min-height: fit-content;
+            position: relative;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .App-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .App-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin: 0;
+            font-weight: 400;
+        }
+
+
+        /* Chat Container */
+        .chat-container {
+            grid-column: 1;
+            grid-row: 3;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: #f8f9fa;
+            overflow: hidden;
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            scroll-behavior: smooth;
+        }
+
+        .welcome-message {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .welcome-message h3 {
+            color: #003399; /* EU Blue */
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .welcome-message p {
+            color: #555;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Example Questions */
+        .example-questions {
+            margin-top: 1.5rem;
+        }
+
+        .example-questions h4 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .question-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: center;
+        }
+
+        .question-chip {
+            background: #003399; /* EU Official Blue */
+            border: 2px solid #003399;
+            border-radius: 6px; /* EU-style rounded corners */
+            padding: 0.75rem 1.25rem;
+            font-size: 0.9rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0, 51, 153, 0.2);
+            font-weight: 500;
+        }
+
+        .question-chip:hover {
+            background: #0066cc; /* Lighter EU Blue on hover */
+            border-color: #0066cc;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 51, 153, 0.3);
+        }
+
+        .question-chip:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 51, 153, 0.2);
+        }
+
+        /* Messages */
+        .message {
+            display: flex;
+            margin-bottom: 1rem;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message.assistant {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .message.user .message-content {
+            background: #003399; /* EU Official Blue */
+            color: white;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 51, 153, 0.2);
+        }
+
+        .message.assistant .message-content {
+            background: white;
+            color: #333;
+            border: 1px solid #e1e5e9;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .message.error .message-content {
+            background: #fee;
+            border-color: #fcc;
+            color: #c33;
+        }
+
+        .message-text {
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-text strong {
+            font-weight: 600;
+        }
+
+        .message-text em {
+            font-style: italic;
+        }
+
+        .message-timestamp {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            text-align: right;
+        }
+
+        .message-metadata {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .metadata-item {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            background: rgba(0, 51, 153, 0.1);
+            border-radius: 4px;
+            color: #003399;
+            border: 1px solid rgba(0, 51, 153, 0.2);
+        }
+
+        /* Loading Indicator */
+        .loading-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #003399; /* EU Blue */
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Input Container */
+        .input-container {
+            grid-column: 1;
+            grid-row: 4;
+            padding: 1rem;
+            background: white;
+            border-top: 1px solid #e1e5e9;
+            flex-shrink: 0;
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 0.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .message-input:focus {
+            border-color: #003399; /* EU Blue */
+            box-shadow: 0 0 0 3px rgba(0, 51, 153, 0.1);
+        }
+
+        .message-input:disabled {
+            background: #f8f9fa;
+            cursor: not-allowed;
+        }
+
+        .send-button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 6px; /* EU-style rounded corners */
+            background: #003399; /* EU Official Blue */
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 51, 153, 0.2);
+        }
+
+        .send-button:hover:not(:disabled) {
+            background: #0066cc; /* Lighter EU Blue */
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 51, 153, 0.3);
+        }
+
+        .send-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            grid-column: 2;
+            grid-row: 3;
+            background: white;
+            border-left: 1px solid #e1e5e9;
+            padding: 1rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            flex-shrink: 0;
+        }
+
+        .sidebar-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            margin-top: auto;
+            padding-bottom: 0;
+        }
+
+        /* Email Modal */
+        .email-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .email-modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .email-modal h3 {
+            color: #003399;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .email-modal p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .email-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: #003399;
+        }
+
+        .email-buttons {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .email-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .email-btn-primary {
+            background: #003399;
+            color: white;
+        }
+
+        .email-btn-primary:hover {
+            background: #002266;
+        }
+
+        .email-btn-secondary {
+            background: #f8f9fa;
+            color: #666;
+            border: 1px solid #e1e5e9;
+        }
+
+        .email-btn-secondary:hover {
+            background: #e9ecef;
+        }
+
+        .email-error {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .sidebar-section h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Statistics */
+        .stats {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            color: #003399; /* EU Blue */
+            font-weight: 600;
+        }
+
+        /* Action Buttons */
+        .action-button {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border: 2px solid #003399; /* EU Blue border */
+            border-radius: 6px; /* EU-style rounded corners */
+            background: white;
+            color: #003399; /* EU Blue text */
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .action-button:hover {
+            background: #003399; /* EU Blue background on hover */
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 51, 153, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .App {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto 1fr auto auto;
+            }
+            
+            .sidebar {
+                grid-column: 1;
+                grid-row: 5;
+                border-left: none;
+                border-top: 1px solid #e1e5e9;
+                max-height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .App {
+                height: 100vh;
+            }
+            
+            .message-content {
+                max-width: 85%;
+            }
+            
+            .input-wrapper {
+                flex-direction: column;
+            }
+            
+            .send-button {
+                width: 100%;
+                border-radius: 25px;
+            }
+            
+            .sidebar {
+                max-height: 250px;
+            }
+            
+            .stats {
+                font-size: 0.8rem;
+            }
+            
+            .question-chips {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .question-chip {
+                width: 100%;
+                max-width: 300px;
+                white-space: normal;
+                text-align: center;
+            }
+        }
+
+        /* Scrollbar Styling */
+        .messages-container::-webkit-scrollbar,
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .messages-container::-webkit-scrollbar-track,
+        .sidebar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .messages-container::-webkit-scrollbar-thumb,
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        .messages-container::-webkit-scrollbar-thumb:hover,
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
+</head>
+<body>
+    <div class="App">
+        <!-- Top White Banner with EU Flag and Alquim Logo -->
+        <div class="top-banner">
+            <div class="top-banner-left">
+                <svg class="eu-flag-small" viewBox="0 0 810 540" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <g id="s">
+                            <g id="c">
+                                <path id="t" d="M0,0v1h0.5z" transform="translate(0,-1)rotate(18)"/>
+                                <use xlink:href="#t" transform="scale(-1,1)"/>
+                            </g>
+                            <g id="a">
+                                <use xlink:href="#c" transform="rotate(72)"/>
+                                <use xlink:href="#c" transform="rotate(144)"/>
+                            </g>
+                            <use xlink:href="#a" transform="scale(-1,1)"/>
+                        </g>
+                    </defs>
+                    <rect fill="#003399" width="810" height="540"/>
+                    <g fill="#fc0" transform="scale(30)translate(13.5,9)">
+                        <use xlink:href="#s" y="-6"/>
+                        <use xlink:href="#s" y="6"/>
+                        <g id="l">
+                            <use xlink:href="#s" x="-6"/>
+                            <use xlink:href="#s" transform="rotate(150)translate(0,6)rotate(66)"/>
+                            <use xlink:href="#s" transform="rotate(120)translate(0,6)rotate(24)"/>
+                            <use xlink:href="#s" transform="rotate(60)translate(0,6)rotate(12)"/>
+                            <use xlink:href="#s" transform="rotate(30)translate(0,6)rotate(42)"/>
+                        </g>
+                        <use xlink:href="#l" transform="scale(-1,1)"/>
+                    </g>
+                </svg>
+                <span style="font-weight: 600; color: #333; font-size: 1.1rem;">European Union</span>
+            </div>
+            <div class="top-banner-right">
+                <a href="https://alquimanalytics.com" target="_blank" style="font-weight: 600; color: #333; font-size: 1.1rem; text-decoration: none;">Alquim Analytics</a>
+                <a href="https://alquimanalytics.com" target="_blank">
+                    <img src="/static/Alquim-logo-black.png" alt="Alquim Analytics" class="alquim-logo">
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Blue Header -->
+        <header class="App-header">
+            <div class="header-content">
+                <h1>EU AI Act Assistant</h1>
+                <p>Your gateway to understanding the <a href="https://artificialintelligenceact.eu" target="_blank" style="color: white; text-decoration: underline;">EU AI Act</a></p>
+            </div>
+        </header>
+
+        <div class="chat-container">
+            <div class="messages-container" id="messagesContainer">
+                <div class="welcome-message">
+                    <h3>Welcome to the EU AI Act Assistant!</h3>
+                    <p>I'm here to help you understand the European Union Artificial Intelligence Act and its implications.</p>
+
+                    <div class="example-questions">
+                        <h4>Try asking me about:</h4>
+                        <div class="question-chips">
+                            <button class="question-chip" onclick="sendMessage('What is the EU AI Act?')">What is the EU AI Act?</button>
+                            <button class="question-chip" onclick="sendMessage('What are the risk categories in the EU AI Act?')">What are the risk categories in the EU AI Act?</button>
+                            <button class="question-chip" onclick="sendMessage('How do I know whether an AI system is high-risk?')">How do I know whether an AI system is high-risk?</button>
+                            <button class="question-chip" onclick="sendMessage('What are the compliance requirements for businesses?')">What are the compliance requirements for businesses?</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <input
+                        type="text"
+                        id="messageInput"
+                        placeholder="Ask me anything about the EU AI Act..."
+                        class="message-input"
+                    />
+                    <button onclick="sendMessage()" class="send-button" id="sendButton">
+                        📤
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <h3>📊 Statistics</h3>
+                <div class="stats" id="stats">
+                    <p>Loading statistics...</p>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>🛠️ Actions</h3>
+                <button onclick="resetConversation()" class="action-button">
+                    🔄 Reset Conversation
+                </button>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>ℹ️ About</h3>
+                <p>This assistant uses advanced prompting strategies and conversation memory to provide accurate, context-aware responses about the EU AI Act.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let messages = [];
+        let isLoading = false;
+        let stats = null;
+
+        const exampleQuestions = [
+            "What is the EU AI Act?",
+            "What are the risk categories in the EU AI Act?",
+            "How do I know whether an AI system is high-risk?",
+            "What are the compliance requirements for businesses?",
+        ];
+
+        const API_BASE_URL = '/api';
+
+        function scrollToBottom() {
+            const messagesContainer = document.getElementById('messagesContainer');
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function addMessage(text, sender, metadata = null) {
+            const message = {
+                id: Date.now(),
+                text: text,
+                sender: sender,
+                timestamp: new Date().toLocaleTimeString(),
+                metadata: metadata
+            };
+            messages.push(message);
+            renderMessages();
+            scrollToBottom();
+        }
+
+        function renderMessages() {
+            const messagesContainer = document.getElementById('messagesContainer');
+            
+            // Clear welcome message if we have messages
+            if (messages.length > 0) {
+                const welcomeMessage = messagesContainer.querySelector('.welcome-message');
+                if (welcomeMessage) {
+                    welcomeMessage.remove();
+                }
+            }
+
+            // Render all messages
+            messagesContainer.innerHTML = messages.map(message => `
+                <div class="message ${message.sender} ${message.isError ? 'error' : ''}">
+                    <div class="message-content">
+                        <div class="message-text">${formatMessage(message.text)}</div>
+                        <div class="message-timestamp">${message.timestamp}</div>
+                        ${message.metadata && message.sender === 'assistant' ? `
+                            <div class="message-metadata">
+                                ${message.metadata.contextUsed ? `<span class="metadata-item">📄 ${message.metadata.documentsRetrieved} docs</span>` : ''}
+                                ${message.metadata.relevanceScore ? `<span class="metadata-item">🎯 ${Math.round(message.metadata.relevanceScore * 100)}% relevant</span>` : ''}
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            // Add loading indicator if loading
+            if (isLoading) {
+                messagesContainer.innerHTML += `
+                    <div class="message assistant">
+                        <div class="message-content">
+                            <div class="loading-indicator">
+                                <div class="typing-dots">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function formatMessage(text) {
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/- (.*)/g, '• $1')
+                .replace(/\n/g, '<br>');
+        }
+
+        // Email management
+        let userEmail = localStorage.getItem('userEmail');
+        let pendingMessage = null;
+
+        async function sendMessage(messageText = null) {
+            const input = document.getElementById('messageInput');
+            const textToSend = messageText || input.value;
+            
+            if (!textToSend.trim() || isLoading) return;
+
+            // Check if user has provided email
+            if (!userEmail) {
+                pendingMessage = textToSend;
+                showEmailModal();
+                return;
+            }
+
+            // Proceed with sending message
+            await processMessage(textToSend);
+        }
+
+        async function processMessage(textToSend) {
+            // Add user message
+            addMessage(textToSend, 'user');
+            document.getElementById('messageInput').value = '';
+            isLoading = true;
+            renderMessages();
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: textToSend }),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    if (response.status === 429) {
+                        // Daily limit reached
+                        addMessage(errorData.response, 'assistant', null, true);
+                        return;
+                    }
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // Add assistant message
+                addMessage(data.response, 'assistant', {
+                    contextUsed: data.context_used,
+                    relevanceScore: data.relevance_score,
+                    documentsRetrieved: data.documents_retrieved,
+                    queryAnalysis: data.query_analysis
+                });
+
+                // Update stats
+                if (data.conversation_stats) {
+                    updateStats(data.conversation_stats);
+                }
+
+            } catch (error) {
+                console.error('Error sending message:', error);
+                addMessage('Sorry, I encountered an error while processing your request. Please try again.', 'assistant', null, true);
+            } finally {
+                isLoading = false;
+                renderMessages();
+            }
+        }
+
+        // Email modal functions
+        function showEmailModal() {
+            document.getElementById('emailModal').style.display = 'flex';
+            document.getElementById('emailInput').focus();
+        }
+
+        function hideEmailModal() {
+            document.getElementById('emailModal').style.display = 'none';
+            document.getElementById('emailInput').value = '';
+            document.getElementById('emailError').style.display = 'none';
+        }
+
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        async function submitEmail() {
+            const emailInput = document.getElementById('emailInput');
+            const emailError = document.getElementById('emailError');
+            const email = emailInput.value.trim();
+
+            if (!email) {
+                emailError.textContent = 'Please enter an email address.';
+                emailError.style.display = 'block';
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                emailError.style.display = 'block';
+                return;
+            }
+
+            try {
+                // Store email in backend
+                const response = await fetch(`${API_BASE_URL}/store-email`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: email }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Store email locally
+                userEmail = email;
+                localStorage.setItem('userEmail', email);
+                
+                // Hide modal and process pending message
+                hideEmailModal();
+                
+                if (pendingMessage) {
+                    await processMessage(pendingMessage);
+                    pendingMessage = null;
+                }
+
+            } catch (error) {
+                console.error('Error storing email:', error);
+                emailError.textContent = 'Failed to store email. Please try again.';
+                emailError.style.display = 'block';
+            }
+        }
+
+        async function resetConversation() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/reset`, { method: 'POST' });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                messages = [];
+                renderMessages();
+                getStats();
+            } catch (error) {
+                console.error('Failed to reset conversation:', error);
+            }
+        }
+
+        async function getStats() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/stats`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                if (data.success) {
+                    updateStats(data.stats);
+                }
+            } catch (error) {
+                console.error('Failed to get stats:', error);
+            }
+        }
+
+        function updateStats(newStats) {
+            stats = newStats;
+            const statsContainer = document.getElementById('stats');
+            statsContainer.innerHTML = `
+                <div class="stat-item">
+                    <span class="stat-label">Total Queries:</span>
+                    <span class="stat-value">${stats.total_queries}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Successful Retrievals:</span>
+                    <span class="stat-value">${stats.successful_retrievals}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Failed Retrievals:</span>
+                    <span class="stat-value">${stats.failed_retrievals}</span>
+                </div>
+                ${stats.uptime ? `
+                    <div class="stat-item">
+                        <span class="stat-label">Uptime:</span>
+                        <span class="stat-value">${stats.uptime}</span>
+                    </div>
+                ` : ''}
+            `;
+        }
+
+        // Event listeners
+        document.getElementById('messageInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            getStats();
+            
+            // Email modal event listeners
+            document.getElementById('emailSubmit').addEventListener('click', submitEmail);
+            document.getElementById('emailCancel').addEventListener('click', hideEmailModal);
+            document.getElementById('emailInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    submitEmail();
+                }
+            });
+        });
+    </script>
+
+    <!-- Email Collection Modal -->
+    <div id="emailModal" class="email-modal" style="display: none;">
+        <div class="email-modal-content">
+            <h3>📧 Email Required</h3>
+            <p>Please enter your email address to continue using the EU AI Act Assistant.</p>
+            <input type="email" id="emailInput" class="email-input" placeholder="Enter your email address" required>
+            <div id="emailError" class="email-error">Please enter a valid email address.</div>
+            <div class="email-buttons">
+                <button id="emailCancel" class="email-btn email-btn-secondary">Cancel</button>
+                <button id="emailSubmit" class="email-btn email-btn-primary">Continue</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

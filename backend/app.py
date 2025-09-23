@@ -1,9 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from chatter import Chatter 
 from dotenv import load_dotenv
 import os
 import logging
+import json
+from datetime import datetime, date
 
 # Load environment variables from .env file
 load_dotenv()
@@ -38,6 +40,50 @@ def after_request(response):
 # Initialize your Chatter instance
 chatter = Chatter()
 
+# Daily message counter (in-memory)
+DAILY_LIMIT = 20
+daily_counter = 0
+current_date = None
+
+def get_daily_counter():
+    """Get the current daily counter."""
+    global daily_counter, current_date
+    today = date.today()
+    
+    # Check if it's a new day
+    if current_date != today:
+        # Reset counter for new day
+        daily_counter = 0
+        current_date = today
+        logger.info(f'New day detected, counter reset to 0')
+    
+    return daily_counter
+
+def increment_daily_counter():
+    """Increment the daily counter."""
+    global daily_counter, current_date
+    today = date.today()
+    
+    # Check if it's a new day
+    if current_date != today:
+        daily_counter = 0
+        current_date = today
+        logger.info(f'New day detected, counter reset to 0')
+    
+    daily_counter += 1
+    logger.info(f'Daily counter incremented to {daily_counter}')
+    return daily_counter
+
+def check_daily_limit():
+    """Check if daily limit has been reached."""
+    current_count = get_daily_counter()
+    return current_count < DAILY_LIMIT
+
+@app.route('/')
+def index():
+    """Serve the main chat interface."""
+    return render_template('index.html')
+
 @app.route('/api/chat', methods=['POST'])
 def chat():
     """Main chat endpoint that handles user queries."""
@@ -52,10 +98,29 @@ def chat():
                 'success': False,
                 'error': 'Missing message field'
             }), 400
+        
+        # Check daily limit
+        if not check_daily_limit():
+            current_count = get_daily_counter()
+            return jsonify({
+                'response': f'Daily message limit reached ({DAILY_LIMIT} messages per day). Please try again tomorrow.',
+                'success': False,
+                'error': 'Daily limit exceeded',
+                'daily_count': current_count,
+                'daily_limit': DAILY_LIMIT
+            }), 429  # Too Many Requests
+            
+        # Increment counter before processing
+        new_count = increment_daily_counter()
+        logger.info(f'Processing message {new_count}/{DAILY_LIMIT}')
             
         # Get the structured response from chatter
         result = chatter.chat(user_input)
         logger.info(f'Generated response: {result.get("response", "No response")}')
+        
+        # Add counter info to response
+        result['daily_count'] = new_count
+        result['daily_limit'] = DAILY_LIMIT
         
         return jsonify(result)
         
@@ -78,6 +143,25 @@ def get_stats():
         })
     except Exception as e:
         logger.error(f'Error getting stats: {str(e)}')
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/counter', methods=['GET'])
+def get_counter():
+    """Get daily message counter status."""
+    try:
+        current_count = get_daily_counter()
+        return jsonify({
+            'success': True,
+            'daily_count': current_count,
+            'daily_limit': DAILY_LIMIT,
+            'remaining': DAILY_LIMIT - current_count,
+            'date': date.today().isoformat()
+        })
+    except Exception as e:
+        logger.error(f'Error getting counter: {str(e)}')
         return jsonify({
             'success': False,
             'error': str(e)
@@ -114,6 +198,78 @@ def health_check():
         logger.error(f'Health check failed: {str(e)}')
         return jsonify({
             'status': 'unhealthy',
+            'error': str(e)
+        }), 500
+
+@app.route('/api/store-email', methods=['POST'])
+def store_email():
+    """Store user email address in a file."""
+    try:
+        data = request.get_json()
+        email = data.get('email')
+        
+        if not email:
+            return jsonify({
+                'success': False,
+                'error': 'Email is required'
+            }), 400
+        
+        # Validate email format
+        import re
+        email_pattern = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'
+        if not re.match(email_pattern, email):
+            return jsonify({
+                'success': False,
+                'error': 'Invalid email format'
+            }), 400
+        
+        # Create data directory if it doesn't exist
+        data_dir = 'data'
+        if not os.path.exists(data_dir):
+            os.makedirs(data_dir)
+        
+        # File path for storing emails
+        emails_file = os.path.join(data_dir, 'user_emails.json')
+        
+        # Load existing emails
+        emails = []
+        if os.path.exists(emails_file):
+            try:
+                with open(emails_file, 'r') as f:
+                    emails = json.load(f)
+            except (json.JSONDecodeError, FileNotFoundError):
+                emails = []
+        
+        # Check if email already exists
+        email_exists = any(entry.get('email') == email for entry in emails)
+        
+        if not email_exists:
+            # Add new email entry
+            email_entry = {
+                'email': email,
+                'timestamp': datetime.now().isoformat()
+            }
+            emails.append(email_entry)
+            
+            # Save to file
+            with open(emails_file, 'w') as f:
+                json.dump(emails, f, indent=2)
+            
+            logger.info(f'New email stored: {email}')
+        else:
+            logger.info(f'Email already exists: {email}')
+        
+        # Always return success - allow access whether email is new or existing
+        return jsonify({
+            'success': True,
+            'message': 'Access granted',
+            'email_exists': email_exists
+        })
+        
+    except Exception as e:
+        logger.error(f'Error storing email: {str(e)}')
+        return jsonify({
+            'success': False,
             'error': str(e)
         }), 500
 
