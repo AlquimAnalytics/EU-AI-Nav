@@ -83,6 +83,6 @@ jobs:
                   --restart=unless-stopped \
                   -e OPENAI_API_KEY=$OPENAI_API_KEY \
                   -p 8000:8000 \
-                  -v /home/ec2-user/data/user_emails.json:/app/data/user_emails.json \
+                  -v /home/ec2-user/email:/app/email \
                   $REGISTRY/$DOCKER_REPOSITORY:$BACKEND_TAG
               

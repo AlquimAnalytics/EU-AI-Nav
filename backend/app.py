@@ -224,7 +224,7 @@ def store_email():
             }), 400
         
         # Create data directory if it doesn't exist
-        data_dir = 'data'
+        data_dir = 'email'
         if not os.path.exists(data_dir):
             os.makedirs(data_dir)
         

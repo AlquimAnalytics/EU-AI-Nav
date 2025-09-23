@@ -21,6 +21,7 @@ COPY backend/ .
 
 # Create data directory for vector store
 RUN mkdir -p data/vector_store
+RUN mkdir -p email
 
 # Copy vector store files into the container
 COPY backend/data/vector_store/ data/vector_store/
