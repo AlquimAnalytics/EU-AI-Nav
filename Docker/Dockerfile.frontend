@@ -13,6 +13,11 @@ RUN npm install
 # Copy source code
 COPY frontend/ .
 
+# Set environment variables for React
+ENV HOST=0.0.0.0
+ENV PORT=3000
+ENV PUBLIC_URL=/eu-ai-nav
+
 # Expose port
 EXPOSE 3000
 
