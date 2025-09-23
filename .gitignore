@@ -52,3 +52,5 @@ build/
 ehthumbs.db
 Thumbs.db 
 archive/
+
+user_emails.json
