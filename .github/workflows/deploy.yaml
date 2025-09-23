@@ -12,9 +12,10 @@ env:
     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     PRIVATE_SSH_KEY: ${{ secrets.PRIVATE_SSH_KEY }}
     PUBLIC_IP: ${{ secrets.PUBLIC_IP }}
-    DOCKER_REPOSITORY: fintel
-    IMAGE_TAG: fintel-${{ github.ref_name }}
-    DB_TAG: fintel-db-${{ github.ref_name }}
+    OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    DOCKER_REPOSITORY: eu-ai-nav
+    BACKEND_TAG: backend-${{ github.ref_name }}
+    FRONTEND_TAG: frontend-${{ github.ref_name }}
 
 jobs:
     publish-to-ecr:
@@ -28,14 +29,27 @@ jobs:
             id: login-ecr
             uses: aws-actions/amazon-ecr-login@v1
           
-          - name: Build and push docker image
+          - name: Build and push backend docker image
             env:
                 REGISTRY: ${{ steps.login-ecr.outputs.registry }}
             run: |-
-                aws ecr batch-delete-image --repository-name $DOCKER_REPOSITORY --image-ids imageTag=$IMAGE_TAG --region $AWS_REGION
+                # Delete old backend image if exists
+                aws ecr batch-delete-image --repository-name $DOCKER_REPOSITORY --image-ids imageTag=$BACKEND_TAG --region $AWS_REGION || true
                 
-                docker build -f Docker/Dockerfile -t $REGISTRY/$DOCKER_REPOSITORY:$IMAGE_TAG .
-                docker push $REGISTRY/$DOCKER_REPOSITORY:$IMAGE_TAG
+                # Build and push backend
+                docker build -f Docker/Dockerfile.backend -t $REGISTRY/$DOCKER_REPOSITORY:$BACKEND_TAG .
+                docker push $REGISTRY/$DOCKER_REPOSITORY:$BACKEND_TAG
+
+          - name: Build and push frontend docker image
+            env:
+                REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+            run: |-
+                # Delete old frontend image if exists
+                aws ecr batch-delete-image --repository-name $DOCKER_REPOSITORY --image-ids imageTag=$FRONTEND_TAG --region $AWS_REGION || true
+                
+                # Build and push frontend
+                docker build -f Docker/Dockerfile.frontend -t $REGISTRY/$DOCKER_REPOSITORY:$FRONTEND_TAG .
+                docker push $REGISTRY/$DOCKER_REPOSITORY:$FRONTEND_TAG
 
     pull-from-ecr-and-deploy:
         needs: publish-to-ecr
@@ -46,7 +60,7 @@ jobs:
             id: login-ecr
             uses: aws-actions/amazon-ecr-login@v1
           
-          - name: Deploy docker image to EC2
+          - name: Deploy docker images to EC2
             env:
               REGISTRY: ${{ steps.login-ecr.outputs.registry }}
             uses: appleboy/ssh-action@master
@@ -54,42 +68,44 @@ jobs:
               host: ${{ env.PUBLIC_IP }}
               username: ec2-user
               key: ${{ env.PRIVATE_SSH_KEY }}
-              envs: PRIVATE_SSH_KEY, REGISTRY, DOCKER_REPOSITORY, IMAGE_TAG, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, DATABENTO_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, TRADERSPOST_WEBHOOK_URL
+              envs: PRIVATE_SSH_KEY, REGISTRY, DOCKER_REPOSITORY, BACKEND_TAG, FRONTEND_TAG, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION
               command_timeout: 15m
               script: |-
-                echo "Deploying Docker image to EC2..."
-                sudo chmod 777 /home/ec2-user/data
-            
+                echo "Deploying RAG Docker images to EC2..."
+                
+                # Login to ECR
                 echo $(aws ecr get-login-password --region $AWS_REGION) | sudo docker login --username AWS --password-stdin $REGISTRY
             
                 # Stop and remove old containers
-                sudo docker stop fintel || true
-                sudo docker stop fintel-strategy || true
-                sudo docker rm fintel || true
-                sudo docker rm fintel-strategy ||true
+                sudo docker stop rag-backend || true
+                sudo docker stop rag-frontend || true
+                sudo docker rm rag-backend || true
+                sudo docker rm rag-frontend || true
                 sudo docker system prune -a -f
             
-                # Pull and run new Docker images
-                sudo docker pull $REGISTRY/$DOCKER_REPOSITORY:$IMAGE_TAG
-                sudo docker network create fintel || true
+                # Pull new Docker images
+                sudo docker pull $REGISTRY/$DOCKER_REPOSITORY:$BACKEND_TAG
+                sudo docker pull $REGISTRY/$DOCKER_REPOSITORY:$FRONTEND_TAG
+                
+                # Create network
+                sudo docker network create rag-network || true
 
+                # Run backend container
                 sudo docker run -d \
-                  --name fintel \
-                  --restart=on-failure \
-                  --network fintel \
-                  --volume /home/ec2-user/data:/data \
+                  --name rag-backend \
+                  --restart=unless-stopped \
+                  --network rag-network \
+                  --volume /home/ec2-user/data:/app/data \
+                  -e OPENAI_API_KEY=$OPENAI_API_KEY \
                   -p 8000:8000 \
-                  $REGISTRY/$DOCKER_REPOSITORY:$IMAGE_TAG web
+                  -e OPENAI_API_KEY=$OPENAI_API_KEY \
+                  $REGISTRY/$DOCKER_REPOSITORY:$BACKEND_TAG
 
-
+                # Run frontend container
                 sudo docker run -d \
-                  --name fintel-strategy \
-                  --restart=on-failure \
-                  --network fintel \
-                  --volume /home/ec2-user/data:/data \
-                  -e DATABENTO_KEY=$DATABENTO_KEY \
-                  -e TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN \
-                  -e TELEGRAM_CHAT_ID=$TELEGRAM_CHAT_ID \
-                  -e TRADERSPOST_WEBHOOK_URL=$TRADERSPOST_WEBHOOK_URL \
-                  $REGISTRY/$DOCKER_REPOSITORY:$IMAGE_TAG strategy
+                  --name rag-frontend \
+                  --restart=unless-stopped \
+                  --network rag-network \
+                  -p 3000:3000 \
+                  $REGISTRY/$DOCKER_REPOSITORY:$FRONTEND_TAG
               
