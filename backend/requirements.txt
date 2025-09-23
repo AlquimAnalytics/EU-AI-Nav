@@ -7,7 +7,7 @@ langchain==0.3.27
 langchain-community==0.3.29
 langchain-core==0.3.76
 langchain-openai==0.3.33
-openai==1.52.2
+openai>=1.104.2
 
 # Vector store and PDF parsing
 faiss-cpu==1.7.4
