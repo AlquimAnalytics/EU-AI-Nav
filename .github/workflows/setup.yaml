@@ -9,8 +9,8 @@ env:
     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     PRIVATE_SSH_KEY: ${{ secrets.PRIVATE_SSH_KEY }}
     PUBLIC_IP: ${{ secrets.PUBLIC_IP }}
-    DOCKER_REPOSITORY: fintel
-    IMAGE_TAG: fintel-${{ github.ref_name }}
+    DOCKER_REPOSITORY: eu-ai-nav
+    IMAGE_TAG: eu-ai-nav-${{ github.ref_name }}
     
 jobs:
     setup:
@@ -58,18 +58,35 @@ jobs:
                 sudo systemctl start crond.service
                 sudo systemctl enable crond.service
 
-                # Configure Nginx for Flask reverse proxy 
-                sudo bash -c 'cat > /etc/nginx/conf.d/fintel.ekinbasarkomur.com.conf <<EOF
+                # Configure Nginx for multiple Docker containers reverse proxy 
+                sudo bash -c 'cat > /etc/nginx/conf.d/demo.alquimanalytics.com.conf <<EOF
                 server {
                     listen 80;
-                    server_name fintel.ekinbasarkomur.com;
+                    server_name demo.alquimanalytics.com;
 
-                    location / {
-                        proxy_pass http://127.0.0.1:8000;
+                    # Route /eu-ai-nav to container on port 8000
+                    location /eu-ai-nav {
+                        proxy_pass http://127.0.0.1:8000/;
                         proxy_set_header Host \$host;
                         proxy_set_header X-Real-IP \$remote_addr;
                         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
                         proxy_set_header X-Forwarded-Proto \$scheme;
+                        proxy_set_header X-Forwarded-Prefix /eu-ai-nav;
+                    }
+
+                    # Route /n8n to container on port 5678
+                    location /n8n {
+                        proxy_pass http://127.0.0.1:5678/;
+                        proxy_set_header Host \$host;
+                        proxy_set_header X-Real-IP \$remote_addr;
+                        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+                        proxy_set_header X-Forwarded-Proto \$scheme;
+                        proxy_set_header X-Forwarded-Prefix /n8n;
+                    }
+
+                    # Default route (optional - can point to a default service or return 404)
+                    location / {
+                        return 404;
                     }
                 }
                 EOF'
@@ -81,6 +98,6 @@ jobs:
                 sleep 10
 
                 # Install SSL certificate using Let's Encrypt
-                sudo certbot --nginx -d fintel.ekinbasarkomur.com --non-interactive --agree-tos -m admin@fintel.ekinbasarkomur.com
+                sudo certbot --nginx -d demo.alquimanalytics.com --non-interactive --agree-tos -m admin@demo.alquimanalytics.com
 
                 sudo systemctl status crond
