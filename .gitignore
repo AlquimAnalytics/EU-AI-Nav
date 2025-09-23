@@ -23,6 +23,7 @@ wheels/
 venv/
 .env
 *.log
+*.pem
 
 # Node
 node_modules/

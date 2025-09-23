@@ -1,0 +1,95 @@
+name: Deploy to AWS
+
+on:
+    workflow_dispatch:
+    #push:
+    #    branches:
+    #      - main
+
+env:
+    AWS_REGION: eu-central-1
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    PRIVATE_SSH_KEY: ${{ secrets.PRIVATE_SSH_KEY }}
+    PUBLIC_IP: ${{ secrets.PUBLIC_IP }}
+    DOCKER_REPOSITORY: fintel
+    IMAGE_TAG: fintel-${{ github.ref_name }}
+    DB_TAG: fintel-db-${{ github.ref_name }}
+
+jobs:
+    publish-to-ecr:
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
+
+          - name: Login to AWS ECR
+            id: login-ecr
+            uses: aws-actions/amazon-ecr-login@v1
+          
+          - name: Build and push docker image
+            env:
+                REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+            run: |-
+                aws ecr batch-delete-image --repository-name $DOCKER_REPOSITORY --image-ids imageTag=$IMAGE_TAG --region $AWS_REGION
+                
+                docker build -f Docker/Dockerfile -t $REGISTRY/$DOCKER_REPOSITORY:$IMAGE_TAG .
+                docker push $REGISTRY/$DOCKER_REPOSITORY:$IMAGE_TAG
+
+    pull-from-ecr-and-deploy:
+        needs: publish-to-ecr
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Login to AWS ECR
+            id: login-ecr
+            uses: aws-actions/amazon-ecr-login@v1
+          
+          - name: Deploy docker image to EC2
+            env:
+              REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+            uses: appleboy/ssh-action@master
+            with:
+              host: ${{ env.PUBLIC_IP }}
+              username: ec2-user
+              key: ${{ env.PRIVATE_SSH_KEY }}
+              envs: PRIVATE_SSH_KEY, REGISTRY, DOCKER_REPOSITORY, IMAGE_TAG, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, DATABENTO_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, TRADERSPOST_WEBHOOK_URL
+              command_timeout: 15m
+              script: |-
+                echo "Deploying Docker image to EC2..."
+                sudo chmod 777 /home/ec2-user/data
+            
+                echo $(aws ecr get-login-password --region $AWS_REGION) | sudo docker login --username AWS --password-stdin $REGISTRY
+            
+                # Stop and remove old containers
+                sudo docker stop fintel || true
+                sudo docker stop fintel-strategy || true
+                sudo docker rm fintel || true
+                sudo docker rm fintel-strategy ||true
+                sudo docker system prune -a -f
+            
+                # Pull and run new Docker images
+                sudo docker pull $REGISTRY/$DOCKER_REPOSITORY:$IMAGE_TAG
+                sudo docker network create fintel || true
+
+                sudo docker run -d \
+                  --name fintel \
+                  --restart=on-failure \
+                  --network fintel \
+                  --volume /home/ec2-user/data:/data \
+                  -p 8000:8000 \
+                  $REGISTRY/$DOCKER_REPOSITORY:$IMAGE_TAG web
+
+
+                sudo docker run -d \
+                  --name fintel-strategy \
+                  --restart=on-failure \
+                  --network fintel \
+                  --volume /home/ec2-user/data:/data \
+                  -e DATABENTO_KEY=$DATABENTO_KEY \
+                  -e TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN \
+                  -e TELEGRAM_CHAT_ID=$TELEGRAM_CHAT_ID \
+                  -e TRADERSPOST_WEBHOOK_URL=$TRADERSPOST_WEBHOOK_URL \
+                  $REGISTRY/$DOCKER_REPOSITORY:$IMAGE_TAG strategy
+              
